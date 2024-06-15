@@ -5,3 +5,4 @@ import ru.job4j.job4j_social_media_api.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 }
+
