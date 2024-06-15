@@ -37,7 +37,7 @@
         <module name="MemberName"/>
         <module name="MethodName"/>
         <module name="PackageName">
-            <property name="format" value="^[a-z]+(\.[a-z0-9]*)*$"/>
+            <property name="format" value="^[a-z]+(\.[a-z0-9_]*)*$"/>
         </module>
         <module name="ParameterName"/>
         <module name="StaticVariableName"/>
@@ -94,13 +94,6 @@
         <!--<module name="FinalClass"/>-->
         <!--<module name="HideUtilityClassConstructor"/>-->
         <module name="InterfaceIsType"/>
-
-        <!-- Custom check for package name allowing underscores -->
-        <module name="RegexpMultiline">
-            <property name="format" value="^[a-z]+(\.[a-z0-9_]*)*$"/>
-            <property name="message" value="Package name is not allowed to start with underscore"/>
-            <property name="ignoreComments" value="true"/>
-        </module>
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
