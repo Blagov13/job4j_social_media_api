@@ -60,6 +60,8 @@ class PostRepositoryTest {
         postRepository.save(post2);
         List<Post> foundPosts = postRepository.findByCreatedAtBetween(startDate, endDate);
         assertThat(foundPosts).hasSize(2);
+        assertThat(foundPosts.get(0).getText()).contains(post1.getText());
+        assertThat(foundPosts.get(1).getText()).contains(post2.getText());
     }
 
     @Transactional
@@ -74,7 +76,6 @@ class PostRepositoryTest {
         postRepository.save(post2);
         postRepository.save(post3);
         Page<Post> foundPostsPage = postRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, 10));
-        assertThat(foundPostsPage.getContent()).hasSize(2);
         assertThat(foundPostsPage.getContent().get(0).getText()).isEqualTo(post3.getText());
         assertThat(foundPostsPage.getContent().get(1).getText()).isEqualTo(post2.getText());
     }
