@@ -15,10 +15,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     /**
      * Найти в БД список постов пользователя по id.
      *
-     * @param authorId ID пользователя.
+     * @param author ID пользователя.
      * @return список всех постов пользователя.
      */
-    List<Post> findByAuthorId(Long authorId);
+    List<Post> findByAuthor(Long author);
 
     /**
      * Найти в БД список постов в диапазоне даты.
