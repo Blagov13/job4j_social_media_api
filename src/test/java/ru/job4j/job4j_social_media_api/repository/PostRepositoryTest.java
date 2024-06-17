@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import ru.job4j.job4j_social_media_api.Job4jSocialMediaApiApplication;
 import ru.job4j.job4j_social_media_api.model.Post;
 import ru.job4j.job4j_social_media_api.model.User;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(classes = Job4jSocialMediaApiApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PostRepositoryTest {
 
