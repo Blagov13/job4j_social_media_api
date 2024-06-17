@@ -15,10 +15,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     /**
      * Найти в БД список постов пользователя по id.
      *
-     * @param userId ID пользователя.
+     * @param authorId ID пользователя.
      * @return список всех постов пользователя.
      */
-    List<Post> findByUserId(Long userId);
+    List<Post> findByAuthorId(Long authorId);
 
     /**
      * Найти в БД список постов в диапазоне даты.
@@ -47,7 +47,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      */
     @Modifying(clearAutomatically = true)
     @Query("""
-            update Post post set post.title = :title and post.text = :text
+            update Post post set post.title = :title, post.text = :text
             where post.id = :id
             """)
     int updateTitleAndText(@Param("title") String title, @Param("text") String text, @Param("id") Long id);
@@ -61,7 +61,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("""
             UPDATE Post p SET p.imageURL = null WHERE p.id = :postId
             """)
-    void deleteImageByPostId(@Param("postId") Long postId);
+    int deleteImageByPostId(@Param("postId") Long postId);
 
     /**
      * Удаление из БД поста.
@@ -72,6 +72,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("""
             DELETE FROM Post p WHERE p.id = :postId
             """)
-    void deletePostById(@Param("postId") Long postId);
+    int deletePostById(@Param("postId") Long postId);
 }
 

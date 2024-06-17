@@ -3,6 +3,7 @@ package ru.job4j.job4j_social_media_api.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.job4j.job4j_social_media_api.model.Post;
@@ -57,8 +58,33 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * * от самых новых к старым с пагинацией.
      */
     @Query("""
-            SELECT p FROM Post p WHERE p.author IN (SELECT u.followers FROM User u WHERE u.id = :userId) ORDER BY p.createdAt DESC
-            """)
+        SELECT p FROM Post p WHERE p.author IN (SELECT u.followers FROM User u WHERE u.id = :userId) ORDER BY p.createdAt DESC
+        """)
     Page<Post> findAllPostsFromFollowersByUserIdOrderByCreatedAtDesc(@Param("userId") Long userId, Pageable pageable);
+
+    /**
+     * Обновить в БД логин и email пользователя.
+     *
+     * @param username логин пользователя.
+     * @param email    email пользователя.
+     * @param id       ID пользователя.
+     */
+    @Modifying(clearAutomatically = true)
+    @Query("""
+            update User user set user.username = :username, user.email = :email
+            where user.id = :id
+            """)
+    void updateUserNameAndEmail(@Param("username") String username, @Param("email") String email, @Param("id") Long id);
+
+    /**
+     * Удаление из БД пользователя.
+     *
+     * @param userId ID пользователя.
+     */
+    @Modifying
+    @Query("""
+            DELETE FROM User u WHERE u.id = :userId
+            """)
+    void deleteById(@Param("userId") Long userId);
 }
 

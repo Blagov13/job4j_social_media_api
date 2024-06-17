@@ -1,9 +1,9 @@
 package ru.job4j.job4j_social_media_api.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,9 +24,10 @@ public class Post {
 
     private String text;
 
+    @Column(name = "image_url")
     private String imageURL;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)

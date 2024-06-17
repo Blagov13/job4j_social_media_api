@@ -1,11 +1,10 @@
 package ru.job4j.job4j_social_media_api.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.job4j_social_media_api.repository.PostRepository;
 import ru.job4j.job4j_social_media_api.model.Post;
-
-import javax.transaction.Transactional;
 
 @Service
 @Transactional
