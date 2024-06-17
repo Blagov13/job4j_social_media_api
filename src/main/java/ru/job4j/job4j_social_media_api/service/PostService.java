@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.job4j_social_media_api.repository.PostRepository;
 import ru.job4j.job4j_social_media_api.model.Post;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -37,5 +39,9 @@ public class PostService {
      */
     public void deleteById(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    public Optional<Post> findById(long id) {
+        return postRepository.findById(id);
     }
 }

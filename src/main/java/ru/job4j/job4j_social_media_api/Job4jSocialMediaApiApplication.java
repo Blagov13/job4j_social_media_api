@@ -9,5 +9,4 @@ public class Job4jSocialMediaApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Job4jSocialMediaApiApplication.class, args);
 	}
-
 }
