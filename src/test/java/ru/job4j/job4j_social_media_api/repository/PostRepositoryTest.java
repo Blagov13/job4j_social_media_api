@@ -47,7 +47,6 @@ class PostRepositoryTest {
         assertThat(foundPosts).hasSize(2);
     }
 
-    @Transactional
     @Test
     public void whenFindByCreatedAtBetweenThenReturnPosts() {
         User author = createUser("test3", "test3@example.com", "123");
