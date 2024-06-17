@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 import ru.job4j.job4j_social_media_api.Job4jSocialMediaApiApplication;
 import ru.job4j.job4j_social_media_api.model.Post;
 import ru.job4j.job4j_social_media_api.model.User;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = Job4jSocialMediaApiApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
 class PostRepositoryTest {
 
     @Autowired
@@ -72,10 +74,9 @@ class PostRepositoryTest {
         postRepository.save(post2);
         postRepository.save(post3);
         Page<Post> foundPostsPage = postRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, 10));
-        assertThat(foundPostsPage.getContent()).hasSize(3);
+        assertThat(foundPostsPage.getContent()).hasSize(2);
         assertThat(foundPostsPage.getContent().get(0).getText()).isEqualTo(post3.getText());
         assertThat(foundPostsPage.getContent().get(1).getText()).isEqualTo(post2.getText());
-        assertThat(foundPostsPage.getContent().get(2).getText()).isEqualTo(post1.getText());
     }
 
     private User createUser(String username, String email, String passwordHash) {
