@@ -33,3 +33,4 @@ public class Post {
     @Column(name = "author_id")
     private Long author;
 }
+
