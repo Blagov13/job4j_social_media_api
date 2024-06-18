@@ -36,7 +36,7 @@ public class UserController {
 
     @PatchMapping
     public ResponseEntity<Void> update(@PathVariable String username, String email, Long id) {
-        if (userService.update(username, email, id)){
+        if (userService.update(username, email, id)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

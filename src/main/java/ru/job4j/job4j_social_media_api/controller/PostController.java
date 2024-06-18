@@ -36,7 +36,7 @@ public class PostController {
 
     @PatchMapping
     public ResponseEntity<Void> update(@PathVariable String tittle, String text, Long id) {
-        if (postService.update(tittle, text, id)){
+        if (postService.update(tittle, text, id)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
