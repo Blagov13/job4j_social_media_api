@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.job4j.job4j_social_media_api.model.User;
 import ru.job4j.job4j_social_media_api.service.UserService;
 
@@ -15,7 +16,15 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) {
-        return ResponseEntity.ok(userService.save(user));
+        userService.save(user);
+        var uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getId())
+                .toUri();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .location(uri)
+                .body(user);
     }
 
     @GetMapping("/{userId}")
@@ -25,15 +34,19 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody User user) {
-        userService.save(user);
+    @PatchMapping
+    public ResponseEntity<Void> update(@PathVariable String username, String email, Long id) {
+        if (userService.update(username, email, id)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeById(@PathVariable int userId) {
-        userService.deleteById(userId);
+    public ResponseEntity<Void> removeById(@PathVariable int userId) {
+        if (userService.deleteById(userId)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

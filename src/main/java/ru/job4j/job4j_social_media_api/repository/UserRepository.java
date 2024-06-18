@@ -1,5 +1,6 @@
 package ru.job4j.job4j_social_media_api.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -58,17 +59,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
             update User user set user.username = :username, user.email = :email
             where user.id = :id
             """)
-    void updateUserNameAndEmail(@Param("username") String username, @Param("email") String email, @Param("id") Long id);
+    int updateUserNameAndEmail(@Param("username") String username, @Param("email") String email, @Param("id") Long id);
 
     /**
      * Удаление из БД пользователя.
      *
      * @param userId ID пользователя.
+     * @return количество удаленных записей.
      */
-    @Modifying
+    @Transactional
+    @Modifying(clearAutomatically = true)
     @Query("""
             DELETE FROM User u WHERE u.id = :userId
             """)
-    void deleteById(@Param("userId") Long userId);
+    int deleteUserById(@Param("userId") Long userId);
 }
 

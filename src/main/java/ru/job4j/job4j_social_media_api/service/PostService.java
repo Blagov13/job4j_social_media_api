@@ -32,6 +32,11 @@ public class PostService {
         postRepository.save(updatedPost);
     }
 
+    public boolean update(String tittle, String text, Long id) {
+        int rsl = postRepository.updateTitleAndText(tittle, text, id);
+        return rsl > 0;
+    }
+
     /**
      * Удаление поста.
      *
@@ -39,6 +44,11 @@ public class PostService {
      */
     public void deleteById(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    public boolean deletePostById(Long id) {
+        int rsl = postRepository.deletePostById(id);
+        return rsl > 0;
     }
 
     public Optional<Post> findById(Long id) {

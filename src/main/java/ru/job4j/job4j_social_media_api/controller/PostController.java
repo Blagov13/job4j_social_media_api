@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.job4j.job4j_social_media_api.model.Post;
 import ru.job4j.job4j_social_media_api.service.PostService;
 
@@ -15,25 +16,37 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> save(@RequestBody Post post) {
-        return ResponseEntity.ok(postService.create(post));
+        postService.create(post);
+        var uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(post.getId())
+                .toUri();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .location(uri)
+                .body(post);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{postId}")
     public ResponseEntity<Post> get(@PathVariable long id) {
         return postService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Post post) {
-        postService.update(post);
+    @PatchMapping
+    public ResponseEntity<Void> update(@PathVariable String tittle, String text, Long id) {
+        if (postService.update(tittle, text, id)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeById(@PathVariable long id) {
-        postService.deleteById(id);
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> removeById(@PathVariable long id) {
+        if (postService.deletePostById(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

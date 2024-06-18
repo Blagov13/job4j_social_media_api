@@ -20,11 +20,13 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public void update(String username, String email, Long id) {
-        userRepository.updateUserNameAndEmail(username, email, id);
+    public boolean update(String username, String email, Long id) {
+        int result = userRepository.updateUserNameAndEmail(username, email, id);
+        return result > 0;
     }
 
-    public void deleteById(long userId) {
-        userRepository.deleteById(userId);
+    public boolean deleteById(long userId) {
+        int result = userRepository.deleteUserById(userId);
+        return result > 0;
     }
 }
