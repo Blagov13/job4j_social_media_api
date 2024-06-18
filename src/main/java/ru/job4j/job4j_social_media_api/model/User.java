@@ -55,4 +55,3 @@ public class User {
     )
     private List<User> following;
 }
-
