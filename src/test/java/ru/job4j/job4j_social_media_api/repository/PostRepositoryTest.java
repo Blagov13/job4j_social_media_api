@@ -35,6 +35,7 @@ class PostRepositoryTest {
         userRepository.deleteAll();
     }
 
+    @Transactional
     @Test
     public void whenFindByAuthorIdThenReturnPosts() {
         User author = createUser(1L, "John Doe", "john.doe@example.com", "123");
