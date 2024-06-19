@@ -66,4 +66,3 @@ public class GlobalExceptionHandler {
         LOGGER.error(e.getLocalizedMessage());
     }
 }
-
