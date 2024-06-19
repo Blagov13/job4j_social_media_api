@@ -53,8 +53,8 @@ class PostRepositoryTest {
     public void whenFindByCreatedAtBetweenThenReturnPosts() {
         User author = createUser(1L, "test3", "test3@example.com", "123");
         userRepository.save(author);
-        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
-        LocalDateTime endDate = LocalDateTime.now();
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1).withSecond(0).withNano(0);
+        LocalDateTime endDate = LocalDateTime.now().withSecond(0).withNano(0);
         Post post1 = new Post(1L, "Title 1", "Text 1", "image1.jpg", startDate, author.getId());
         Post post2 = new Post(2L, "Title 2", "Text 2", "image2.jpg", endDate, author.getId());
         postRepository.save(post1);
