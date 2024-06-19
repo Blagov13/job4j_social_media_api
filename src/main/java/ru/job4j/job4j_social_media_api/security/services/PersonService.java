@@ -26,7 +26,7 @@ public class PersonService {
     public RegisterDTO signUp(SignupRequestDTO signUpRequest) {
         if (Boolean.TRUE.equals(personRepository.existsByUsername(signUpRequest.getUsername()))
                 || Boolean.TRUE.equals(personRepository.existsByEmail(signUpRequest.getEmail()))) {
-            return new RegisterDTO(HttpStatus.BAD_REQUEST, "Error: Username or Email is already taken!" );
+            return new RegisterDTO(HttpStatus.BAD_REQUEST, "Error: Username or Email is already taken!");
         }
 
         Person person = new Person(signUpRequest.getUsername(), signUpRequest.getEmail(),
@@ -49,6 +49,6 @@ public class PersonService {
         }
         person.setRoles(roles);
         personRepository.save(person);
-        return new RegisterDTO(HttpStatus.OK, "Person registered successfully!" );
+        return new RegisterDTO(HttpStatus.OK, "Person registered successfully!");
     }
 }

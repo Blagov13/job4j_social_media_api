@@ -15,6 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import ru.job4j.job4j_social_media_api.security.userdetails.UserDetailsServiceImpl;
 
 import java.io.IOException;
+
 @Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
