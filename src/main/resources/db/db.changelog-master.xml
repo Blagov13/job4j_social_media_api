@@ -11,4 +11,6 @@
     <include file="classpath:db/scripts/005_ddl_create_user_friends_schema.sql"/>
     <include file="classpath:db/scripts/006_ddl_create_user_followers_schema.sql"/>
     <include file="classpath:db/scripts/007_ddl_create_user_following_schema.sql"/>
+    <include file="classpath:db/scripts/008_ddl_create_security_tables.sql"/>
+    <include file="classpath:db/scripts/010_dml_insert_role.sql"/>
 </databaseChangeLog>
