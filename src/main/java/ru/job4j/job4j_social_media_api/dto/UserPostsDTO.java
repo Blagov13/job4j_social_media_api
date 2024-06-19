@@ -21,3 +21,4 @@ public class UserPostsDTO {
 
     private List<Post> posts;
 }
+
