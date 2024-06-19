@@ -35,3 +35,4 @@ public class FriendRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();
 }
+
