@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.job4j_social_media_api.dto.UserPostsDTO;
+import ru.job4j.job4j_social_media_api.dto.UserPostsMapper;
 import ru.job4j.job4j_social_media_api.model.User;
 import ru.job4j.job4j_social_media_api.repository.PostRepository;
 import ru.job4j.job4j_social_media_api.model.Post;
@@ -60,13 +61,14 @@ public class PostService {
     }
 
     public List<UserPostsDTO> getUserPosts(List<Long> userIds) {
+        UserPostsMapper mapper = UserPostsMapper.INSTANCE;
         return userIds.stream()
                 .map(userRepository::findById)
                 .filter(java.util.Optional::isPresent)
                 .map(userOpt -> {
                     User user = userOpt.get();
                     List<Post> posts = postRepository.findByAuthor(user.getId());
-                    return new UserPostsDTO(user.getId(), user.getUsername(), posts);
+                    return mapper.toUserPostsDTO(user, posts);
                 })
                 .collect(Collectors.toList());
     }
